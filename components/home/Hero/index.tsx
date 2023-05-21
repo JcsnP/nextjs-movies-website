@@ -47,7 +47,6 @@ export default function Hero() {
     <BackgroundImage
       height='100vh'
       image={background_image}
-      opacity='50%'
     >
       <Container>
           <Title color='#FFF'>ภาพยนตร์ รายการทีวี และความบันเทิง</Title>
