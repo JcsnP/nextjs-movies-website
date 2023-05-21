@@ -1,20 +1,24 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components'
 import { Card, CardBody } from './shared/Card'
 import Container from './shared/Container';
 
 export default function Navbar() {
+  const [navItemShow, setNavItemShow] = useState<boolean>(true)
   return(
     <Nav>
       <NavLogo href='/'>
         NetFlip
       </NavLogo>
-      <NavItem>
+      <NavItem
+        hide={false}
+      >
         <li>
-          <NavLink href='/most_popular_movies'>Movies</NavLink>
+          <NavLink href='/top-250-movies'>Top 250 Movies</NavLink>
         </li>
         <li>
-          <NavLink href='/most_popular_movies'>Series</NavLink>
+          <NavLink href='/top-250-tv-series'>Top 250 TV Series</NavLink>
         </li>
         <Select>
           <Option>Action</Option>
@@ -24,8 +28,13 @@ export default function Navbar() {
           <Option>Action</Option>
         </Select>
       </NavItem>
+      <Hamburger onClick={() => setNavItemShow(!navItemShow)} />
     </Nav>
   )
+}
+
+interface NavItemProps {
+  hide?: boolean
 }
 
 const Nav = styled.nav`
@@ -44,12 +53,15 @@ const NavLogo = styled(Link)`
   font-size: 2rem;
 `;
 
-const NavItem = styled.ul`
+const NavItem = styled.ul<NavItemProps>`
   width: 50%;
   display: flex;
   flex-direction: row;
   list-style-type: none;
   align-items: center;
+  ${props => props.hide && `
+    display: none;
+  `}
   justify-content: space-between;
 `;
 
@@ -71,4 +83,17 @@ const Option = styled.option`
   font-weight: bold;
   color: #FFF;
   padding: 10px;
+`;
+
+const Hamburger = styled.button`
+  color: #FFF;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  &:after {
+    content: '='
+  }
+  @media (min-width: 480px) {
+    display: none;
+  }
 `;

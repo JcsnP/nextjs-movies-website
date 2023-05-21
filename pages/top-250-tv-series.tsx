@@ -4,16 +4,16 @@ import { SubTitle, Title } from "@/components/shared/Heading"
 import MovieCard from "@/components/shared/MovieCard"
 import axios, { Axios, AxiosResponse } from "axios"
 
-export default function MostPopularMovies({ popularMovies }: any) {
-  if(popularMovies.length) {
+export default function Top250Series({ popularSeries }: any) {
+  if(popularSeries?.length) {
     return(
       <Container>
-        <Title color='white'>Top 250 Movies</Title>
+        <Title color='white'>Top 250 TV Series</Title>
         <Grid
           columns={4}
           gap='10px'
         >
-          {popularMovies.map((item: any, key: number) => (
+          {popularSeries.map((item: any, key: number) => (
             <MovieCard movieDetails={item} key={key} />
           ))}
         </Grid>
@@ -22,7 +22,7 @@ export default function MostPopularMovies({ popularMovies }: any) {
   } else {
     return(
       <Container>
-          <Title color='#FFF' align='center'>ไม่สามารถโหลดภาพยนตร์</Title>
+          <Title color='#FFF' align='center'>ไม่สามารถโหลดซีรี่ย์</Title>
           <SubTitle color='#E50914'>โปรดลองอีกครั้งภายหลัง</SubTitle>T
       </Container>
     )
@@ -32,12 +32,12 @@ export default function MostPopularMovies({ popularMovies }: any) {
 export async function getStaticProps() {
   try {
     const response: AxiosResponse = await axios.get(
-      `https://imdb-api.com/en/API/Top250Movies/${process.env.IMDB_API_KEY}`
+      `https://imdb-api.com/en/API/Top250TVs/${process.env.IMDB_API_KEY}`
     )
-    const popularMovies: JSON = response.data.items
+    const popularSeries: JSON = response.data.items
     return {
       props: {
-        popularMovies,
+        popularSeries,
       }
     }
   } catch(error) {
