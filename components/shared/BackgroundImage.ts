@@ -2,10 +2,7 @@ import styled from 'styled-components'
 
 interface CustomProps {
   height: string
-  image: {
-    src: string
-  },
-  opacity: string
+  image: any // it's an image object that sometime has an src, sometime don't
 }
 
 const BackgroundImage = styled.div<CustomProps>`
